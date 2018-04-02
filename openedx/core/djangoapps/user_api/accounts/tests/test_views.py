@@ -954,12 +954,16 @@ class TestAccountRetireMailings(TransactionTestCase):
         return {'retired_username': retired_username}
 
     def assert_status_and_tag_count(self, headers, expected_status=status.HTTP_200_OK, expected_tag_count=2,
-                                    expected_tag_value="False"):
+                                    expected_tag_value="False", catch=False):
         """
         Helper function for making a request to the retire subscriptions endpoint, and asserting the status.
         """
-        response = self.client.post(self.url, self.build_post(self.test_user), **headers)
-        self.assertEqual(response.status_code, expected_status)
+        try:
+            response = self.client.post(self.url, self.build_post(self.test_user), **headers)
+            self.assertEqual(response.status_code, expected_status)
+        except Exception:   # pylint: disable=broad-except
+            if not catch:
+                raise
 
         # Check that the expected number of tags with the correct value exist
         tag_count = UserOrgTag.objects.filter(user=self.test_user, value=expected_tag_value).count()
@@ -1003,7 +1007,10 @@ class TestAccountRetireMailings(TransactionTestCase):
             self.assert_status_and_tag_count(
                 headers,
                 expected_status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                expected_tag_value="True")
+                expected_tag_value="True",
+                catch=True
+            )
+
             handler.assert_called_once_with(
                 signal=USER_RETIRE_MAILINGS,
                 user=self.test_user,
