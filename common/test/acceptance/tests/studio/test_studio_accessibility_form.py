@@ -7,6 +7,7 @@ from common.test.acceptance.pages.studio.index import AccessibilityPage
 from common.test.acceptance.tests.helpers import AcceptanceTest
 
 
+@attr(shard=21)
 @ddt.ddt
 class AccessibilityPageTest(AcceptanceTest):
     """

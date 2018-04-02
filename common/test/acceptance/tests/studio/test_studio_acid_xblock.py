@@ -8,6 +8,7 @@ from common.test.acceptance.pages.xblock.acid import AcidView
 from common.test.acceptance.tests.helpers import AcceptanceTest
 
 
+@attr(shard=21)
 class XBlockAcidBase(AcceptanceTest):
     """
     Base class for tests that verify that XBlock integration is working correctly

@@ -8,6 +8,7 @@ from common.test.acceptance.tests.studio.base_studio_test import StudioCourseTes
 from common.test.acceptance.pages.studio.asset_index import UPLOAD_FILE_DIR
 
 
+@attr(shard=21)
 class AssetIndexTestStudioFrontend(StudioCourseTest):
     """Tests for the Asset index page."""
 

@@ -58,6 +58,7 @@ class VideoEventsTestMixin(EventsTestMixin, VideoBaseTest):
         )
 
 
+@attr(shard=21)
 class VideoEventsTest(VideoEventsTestMixin):
     """ Test video player event emission """
 

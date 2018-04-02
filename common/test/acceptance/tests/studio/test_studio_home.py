@@ -30,6 +30,7 @@ class CreateLibraryTest(AcceptanceTest):
         self.dashboard_page = DashboardPage(self.browser)
 
 
+@attr(shard=21)
 class StudioLanguageTest(AcceptanceTest):
     """ Test suite for the Studio Language """
     def setUp(self):

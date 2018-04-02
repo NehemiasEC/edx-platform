@@ -10,6 +10,7 @@ from common.test.acceptance.pages.xblock.crowdsourcehinter_problem import Crowds
 from common.test.acceptance.tests.helpers import UniqueCourseTest
 
 
+@attr(shard=21)
 class CrowdsourcehinterProblemTest(UniqueCourseTest):
     """
     Test scenario for the hinter.

@@ -8,6 +8,7 @@ from common.test.acceptance.pages.lms.admin import ChangeUserAdminPage
 from common.test.acceptance.tests.helpers import AcceptanceTest
 
 
+@attr(shard=21)
 class UnicodeUsernameAdminTest(AcceptanceTest):
     """
     Tests if it is possible to update users with unicode usernames in the admin.

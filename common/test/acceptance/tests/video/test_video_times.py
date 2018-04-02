@@ -4,6 +4,7 @@ Acceptance tests for Video Times(Start, End and Finish) functionality.
 from common.test.acceptance.tests.video.test_video_module import VideoBaseTest
 
 
+@attr(shard=21)
 class VideoTimesTest(VideoBaseTest):
     """ Test Video Player Times """
 

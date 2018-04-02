@@ -15,6 +15,7 @@ from common.test.acceptance.pages.studio.index import DashboardPage
 from common.test.acceptance.pages.studio.overview import CourseOutlinePage
 
 
+@attr(shard=21)
 class CourseRerunTest(StudioCourseTest):
     """
     Feature: Courses can be rerun

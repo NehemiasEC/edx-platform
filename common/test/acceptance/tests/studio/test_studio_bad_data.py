@@ -3,6 +3,7 @@ from common.test.acceptance.fixtures.course import XBlockFixtureDesc
 from common.test.acceptance.pages.studio.utils import verify_ordering
 
 
+@attr(shard=21)
 class BadComponentTest(ContainerBase):
     """
     Tests that components with bad content do not break the Unit page.

@@ -8,6 +8,7 @@ from ...pages.common.auto_auth import AutoAuthPage
 from ...pages.studio.index import DashboardPage
 
 
+@attr(shard=21)
 class UsersCanAddUpdatesTest(StudioCourseTest):
     """
     Series of Bok Choy Tests to test the Course Updates page

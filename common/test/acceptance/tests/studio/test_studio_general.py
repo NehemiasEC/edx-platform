@@ -22,6 +22,7 @@ from common.test.acceptance.pages.studio.users import CourseTeamPage
 from common.test.acceptance.tests.helpers import AcceptanceTest, UniqueCourseTest
 
 
+@attr(shard=21)
 class LoggedOutTest(AcceptanceTest):
     """
     Smoke test for pages in Studio that are visible when logged out.
@@ -41,6 +42,7 @@ class LoggedOutTest(AcceptanceTest):
             page.visit()
 
 
+@attr(shard=21)
 class LoggedInPagesTest(AcceptanceTest):
     """
     Verify the pages in Studio that you can get to when logged in and do not have a course yet.
@@ -60,6 +62,7 @@ class LoggedInPagesTest(AcceptanceTest):
         self.home_page.visit()
 
 
+@attr(shard=21)
 class SignUpAndSignInTest(UniqueCourseTest):
     """
     Test studio sign-up and sign-in
@@ -210,6 +213,7 @@ class SignUpAndSignInTest(UniqueCourseTest):
         self.assertEqual(self.browser.current_url, self.course_outline_page.url)
 
 
+@attr(shard=21)
 class CoursePagesTest(StudioCourseTest):
     """
     Tests that verify the pages in Studio that you can get to when logged
@@ -263,6 +267,7 @@ class CoursePagesTest(StudioCourseTest):
             page.visit()
 
 
+@attr(shard=21)
 class DiscussionPreviewTest(StudioCourseTest):
     """
     Tests that Inline Discussions are rendered with a custom preview in Studio
