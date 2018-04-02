@@ -992,28 +992,3 @@ class TestAccountRetireMailings(TransactionTestCase):
 
         # User should still have 2 "True" subscriptions.
         self.assert_status_and_tag_count(headers, expected_status=status.HTTP_403_FORBIDDEN, expected_tag_value="True")
-
-    def test_signal_failure(self):
-        """
-        Verify that if a signal throws an exception, we catch it and return a 500 with details
-        """
-        handler = MagicMock()
-        handler.side_effect = Exception
-        USER_RETIRE_MAILINGS.connect(handler)
-
-        headers = self.build_jwt_headers(self.test_superuser)
-
-        try:
-            self.assert_status_and_tag_count(
-                headers,
-                expected_status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                expected_tag_value="True",
-                catch=True
-            )
-
-            handler.assert_called_once_with(
-                signal=USER_RETIRE_MAILINGS,
-                user=self.test_user,
-                sender=AccountRetireMailingsView)
-        finally:
-            USER_RETIRE_MAILINGS.disconnect(handler)
