@@ -24,7 +24,7 @@ from common.test.acceptance.tests.helpers import create_user_partition_json, ele
 from xmodule.partitions.partitions import Group
 
 
-@attr(shard=8)
+@attr(shard=19)
 class ContentGroupConfigurationTest(StudioCourseTest):
     """
     Tests for content groups in the Group Configurations Page.
@@ -283,7 +283,7 @@ class EnrollmentTrackModeTest(StudioCourseTest):
         self.assertEqual(len(groups), 0)
 
 
-@attr(shard=8)
+@attr(shard=19)
 class AdvancedSettingsValidationTest(StudioCourseTest):
     """
     Tests for validation feature in Studio's advanced settings tab
