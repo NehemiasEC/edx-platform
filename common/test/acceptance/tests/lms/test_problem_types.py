@@ -385,7 +385,6 @@ class ProblemNeverShowCorrectnessMixin(object):
     """
     sequential_metadata = {'show_correctness': 'never'}
 
-    @attr(shard=7)
     @ddt.data('correct', 'incorrect', 'partially-correct')
     def test_answer_says_submitted(self, correctness):
         """
@@ -447,6 +446,7 @@ class ProblemNeverShowCorrectnessMixin(object):
             self.wait_for_events(event_filter=event, number_of_matches=1)
 
 
+@attr(shard=7)
 class AnnotationProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Annotation Problem Type
@@ -525,6 +525,7 @@ class AnnotationProblemTypeNeverShowCorrectnessTest(AnnotationProblemTypeBase, P
     pass
 
 
+@attr(shard=7)
 class CheckboxProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization Checkbox Problem Type
@@ -562,7 +563,6 @@ class CheckboxProblemTypeTest(CheckboxProblemTypeBase, ProblemTypeTestMixin):
     """
     Standard tests for the Checkbox Problem Type
     """
-    @attr(shard=12)
     def test_can_show_answer(self):
         """
         Scenario: Verifies that show answer button is working as expected.
@@ -586,6 +586,7 @@ class CheckboxProblemTypeNeverShowCorrectnessTest(CheckboxProblemTypeBase, Probl
     pass
 
 
+@attr(shard=7)
 class MultipleChoiceProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization Multiple Choice Problem Type
@@ -619,7 +620,6 @@ class MultipleChoiceProblemTypeBase(ProblemTypeTestBase):
             self.problem_page.click_choice("choice_choice_2")
 
 
-@attr(shard=12)
 class MultipleChoiceProblemTypeTest(MultipleChoiceProblemTypeBase, ProblemTypeTestMixin):
     """
     Standard tests for the Multiple Choice Problem Type
@@ -661,6 +661,7 @@ class MultipleChoiceProblemTypeNeverShowCorrectnessTest(MultipleChoiceProblemTyp
     pass
 
 
+@attr(shard=7)
 class RadioProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Radio Problem Type
@@ -709,6 +710,7 @@ class RadioProblemTypeNeverShowCorrectnessTest(RadioProblemTypeBase, ProblemNeve
     pass
 
 
+@attr(shard=7)
 class DropDownProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Drop Down Problem Type
@@ -750,6 +752,7 @@ class DropDownProblemTypeNeverShowCorrectnessTest(DropDownProblemTypeBase, Probl
     pass
 
 
+@attr(shard=7)
 class StringProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for String Problem Type
@@ -796,6 +799,7 @@ class StringProblemTypeNeverShowCorrectnessTest(StringProblemTypeBase, ProblemNe
     pass
 
 
+@attr(shard=7)
 class NumericalProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Numerical Problem Type
@@ -870,6 +874,7 @@ class NumericalProblemTypeNeverShowCorrectnessTest(NumericalProblemTypeBase, Pro
     pass
 
 
+@attr(shard=7)
 class FormulaProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Formula Problem Type
@@ -918,6 +923,7 @@ class FormulaProblemTypeNeverShowCorrectnessTest(FormulaProblemTypeBase, Problem
     pass
 
 
+@attr(shard=12)
 class ScriptProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Script Problem Type
@@ -984,6 +990,7 @@ class ScriptProblemTypeNeverShowCorrectnessTest(ScriptProblemTypeBase, ProblemNe
     pass
 
 
+@attr(shard=12)
 class JSInputTypeTest(ProblemTypeTestBase, ProblemTypeA11yTestMixin):
     """
     TestCase Class for jsinput (custom JavaScript) problem type.
@@ -1007,6 +1014,7 @@ class JSInputTypeTest(ProblemTypeTestBase, ProblemTypeA11yTestMixin):
         raise NotImplementedError()
 
 
+@attr(shard=12)
 class CodeProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Code Problem Type
@@ -1085,6 +1093,7 @@ class CodeProblemTypeNeverShowCorrectnessTest(CodeProblemTypeBase, ProblemNeverS
     pass
 
 
+@attr(shard=12)
 class ChoiceTextProblemTypeTestBase(ProblemTypeTestBase):
     """
     Base class for "Choice + Text" Problem Types.
@@ -1122,6 +1131,7 @@ class ChoiceTextProblemTypeTestBase(ProblemTypeTestBase):
         self._fill_input_text(input_value, choice)
 
 
+@attr(shard=12)
 class RadioTextProblemTypeBase(ChoiceTextProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Radio Text Problem Type
@@ -1179,6 +1189,7 @@ class RadioTextProblemTypeNeverShowCorrectnessTest(RadioTextProblemTypeBase, Pro
     pass
 
 
+@attr(shard=12)
 class CheckboxTextProblemTypeBase(ChoiceTextProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Checkbox Text Problem Type
@@ -1228,6 +1239,7 @@ class CheckboxTextProblemTypeNeverShowCorrectnessTest(CheckboxTextProblemTypeBas
     pass
 
 
+@attr(shard=12)
 class ImageProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Image Problem Type
@@ -1275,6 +1287,7 @@ class ImageProblemTypeNeverShowCorrectnessTest(ImageProblemTypeBase, ProblemNeve
     pass
 
 
+@attr(shard=12)
 class SymbolicProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization  for Symbolic Problem Type
