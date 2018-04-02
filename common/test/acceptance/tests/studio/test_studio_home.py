@@ -3,6 +3,7 @@ Acceptance tests for Home Page (My Courses / My Libraries).
 """
 import datetime
 from uuid import uuid4
+from nose.plugins.attrib import attr
 
 from opaque_keys.edx.locator import LibraryLocator
 

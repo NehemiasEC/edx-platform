@@ -2,6 +2,7 @@
 Acceptance tests for Studio related to the asset index page.
 """
 import os
+from nose.plugins.attrib import attr
 
 from common.test.acceptance.pages.studio.asset_index import AssetIndexPageStudioFrontend
 from common.test.acceptance.tests.studio.base_studio_test import StudioCourseTest

@@ -2,6 +2,7 @@
 Acceptance tests for Studio.
 """
 import uuid
+from nose.plugins.attrib import attr
 
 from base_studio_test import StudioCourseTest
 from common.test.acceptance.fixtures.course import CourseFixture, XBlockFixtureDesc

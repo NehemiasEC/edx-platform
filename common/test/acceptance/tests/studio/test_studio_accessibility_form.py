@@ -2,6 +2,7 @@
 Bok-choy tests for the Studio Accessibility Feedback page.
 """
 import ddt
+from nose.plugins.attrib import attr
 
 from common.test.acceptance.pages.studio.index import AccessibilityPage
 from common.test.acceptance.tests.helpers import AcceptanceTest

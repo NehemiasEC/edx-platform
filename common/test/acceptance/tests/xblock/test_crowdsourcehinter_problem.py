@@ -2,6 +2,7 @@
 Javascript tests for the crowdsourcehinter xblock
 """
 from textwrap import dedent
+from nose.plugins.attrib import attr
 
 from common.test.acceptance.fixtures.course import CourseFixture, XBlockFixtureDesc
 from common.test.acceptance.pages.common.auto_auth import AutoAuthPage

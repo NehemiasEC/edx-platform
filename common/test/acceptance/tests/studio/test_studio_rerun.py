@@ -6,6 +6,7 @@ import random
 
 from bok_choy.promise import EmptyPromise
 from nose.tools import assert_in
+from nose.plugins.attrib import attr
 
 from base_studio_test import StudioCourseTest
 from common.test.acceptance.fixtures.course import XBlockFixtureDesc

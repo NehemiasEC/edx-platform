@@ -1,3 +1,5 @@
+from nose.plugins.attrib import attr
+
 from base_studio_test import ContainerBase
 from common.test.acceptance.fixtures.course import XBlockFixtureDesc
 from common.test.acceptance.pages.studio.utils import verify_ordering

@@ -2,6 +2,7 @@
 """
 End-to-end tests for admin change view.
 """
+from nose.plugins.attrib import attr
 
 from common.test.acceptance.pages.common.auto_auth import AutoAuthPage
 from common.test.acceptance.pages.lms.admin import ChangeUserAdminPage
