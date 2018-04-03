@@ -4,6 +4,8 @@ Test dashboard search
 import json
 import os
 
+from nose.plugins.attrib import attr
+
 from common.test.acceptance.fixtures.course import CourseFixture, XBlockFixtureDesc
 from common.test.acceptance.pages.common.auto_auth import AutoAuthPage
 from common.test.acceptance.pages.common.logout import LogoutPage
@@ -15,6 +17,7 @@ from common.test.acceptance.pages.studio.utils import add_html_component, type_i
 from common.test.acceptance.tests.helpers import AcceptanceTest, generate_course_key
 
 
+@attr(shard=7)
 class DashboardSearchTest(AcceptanceTest):
     """
     Test dashboard search.

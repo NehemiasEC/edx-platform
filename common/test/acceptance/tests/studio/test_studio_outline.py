@@ -1525,7 +1525,7 @@ class DefaultStatesContentTest(CourseOutlineTest):
         self.assertEqual(courseware.xblock_component_type(2), 'discussion')
 
 
-@attr(shard=14)
+@attr(shard=7)
 class UnitNavigationTest(CourseOutlineTest):
     """
     Feature: Navigate to units
@@ -1546,7 +1546,7 @@ class UnitNavigationTest(CourseOutlineTest):
         unit.wait_for_page()
 
 
-@attr(shard=14)
+@attr(shard=7)
 class PublishSectionTest(CourseOutlineTest):
     """
     Feature: Publish sections.
@@ -1673,7 +1673,7 @@ class PublishSectionTest(CourseOutlineTest):
         return (section, subsection, unit)
 
 
-@attr(shard=14)
+@attr(shard=7)
 class DeprecationWarningMessageTest(CourseOutlineTest):
     """
     Feature: Verify deprecation warning message.
