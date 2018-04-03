@@ -525,7 +525,6 @@ class AnnotationProblemTypeNeverShowCorrectnessTest(AnnotationProblemTypeBase, P
     pass
 
 
-@attr(shard=7)
 class CheckboxProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization Checkbox Problem Type
@@ -559,6 +558,7 @@ class CheckboxProblemTypeBase(ProblemTypeTestBase):
             self.problem_page.click_choice("choice_3")
 
 
+@attr(shard=7)
 class CheckboxProblemTypeTest(CheckboxProblemTypeBase, ProblemTypeTestMixin):
     """
     Standard tests for the Checkbox Problem Type
@@ -579,6 +579,7 @@ class CheckboxProblemTypeTest(CheckboxProblemTypeBase, ProblemTypeTestMixin):
         self.problem_page.wait_for_show_answer_notification()
 
 
+@attr(shard=7)
 class CheckboxProblemTypeNeverShowCorrectnessTest(CheckboxProblemTypeBase, ProblemNeverShowCorrectnessMixin):
     """
     Ensure that correctness can be withheld for Checkbox Problem Type problems.
@@ -799,7 +800,7 @@ class StringProblemTypeNeverShowCorrectnessTest(StringProblemTypeBase, ProblemNe
     pass
 
 
-@attr(shard=7)
+@attr(shard=9)
 class NumericalProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Numerical Problem Type
@@ -874,7 +875,7 @@ class NumericalProblemTypeNeverShowCorrectnessTest(NumericalProblemTypeBase, Pro
     pass
 
 
-@attr(shard=7)
+@attr(shard=12)
 class FormulaProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Formula Problem Type
