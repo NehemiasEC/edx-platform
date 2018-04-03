@@ -140,8 +140,10 @@ def reset_test_database():
     defined in pavelib/database.py
     If not, reset the test database and apply migrations
     """
-    print(os.environ.get('USER', None))
-    update_local_bokchoy_db_from_s3()  # pylint: disable=no-value-for-parameter
+    if os.environ.get('USER', None) == 'jenkins':
+        update_local_bokchoy_db_from_s3()  # pylint: disable=no-value-for-parameter
+    else:
+        sh("{}/scripts/reset-test-db.sh --migrations".format(Env.REPO_ROOT))
 
 
 @task
