@@ -167,6 +167,7 @@ class ProblemTypeTestMixin(ProblemTypeA11yTestMixin):
     can_submit_blank = False
     can_update_save_notification = True
 
+    @attr(shard=7)
     def test_answer_correctly(self):
         """
         Scenario: I can answer a problem correctly
@@ -211,6 +212,7 @@ class ProblemTypeTestMixin(ProblemTypeA11yTestMixin):
         for event in expected_events:
             self.wait_for_events(event_filter=event, number_of_matches=1)
 
+    @attr(shard=7)
     def test_answer_incorrectly(self):
         """
         Scenario: I can answer a problem incorrectly
@@ -231,6 +233,7 @@ class ProblemTypeTestMixin(ProblemTypeA11yTestMixin):
         self.wait_for_status('incorrect')
         self.problem_page.wait_incorrect_notification()
 
+    @attr(shard=7)
     def test_submit_blank_answer(self):
         """
         Scenario: I can submit a blank answer
@@ -252,6 +255,7 @@ class ProblemTypeTestMixin(ProblemTypeA11yTestMixin):
         self.problem_page.click_submit()
         self.wait_for_status('incorrect')
 
+    @attr(shard=7)
     def test_cant_submit_blank_answer(self):
         """
         Scenario: I can't submit a blank answer
@@ -267,6 +271,7 @@ class ProblemTypeTestMixin(ProblemTypeA11yTestMixin):
         )
         self.assertTrue(self.problem_page.is_submit_disabled())
 
+    @attr(shard=12)
     def test_can_show_answer(self):
         """
         Scenario: Verifies that show answer button is working as expected.
@@ -280,6 +285,7 @@ class ProblemTypeTestMixin(ProblemTypeA11yTestMixin):
         self.problem_page.click_show()
         self.problem_page.wait_for_show_answer_notification()
 
+    @attr(shard=12)
     def test_save_reaction(self):
         """
         Scenario: Verify that the save button performs as expected with problem types
@@ -313,6 +319,7 @@ class ProblemTypeTestMixin(ProblemTypeA11yTestMixin):
             self.answer_problem(correctness='incorrect')
             self.assertFalse(self.problem_page.is_save_notification_visible())
 
+    @attr(shard=12)
     def test_reset_clears_answer_and_focus(self):
         """
         Scenario: Reset will clear answers and focus on problem meta
@@ -337,6 +344,7 @@ class ProblemTypeTestMixin(ProblemTypeA11yTestMixin):
         # Answer should be reset
         self.wait_for_status('unanswered')
 
+    @attr(shard=12)
     def test_reset_shows_errors(self):
         """
         Scenario: Reset will show server errors
@@ -354,6 +362,7 @@ class ProblemTypeTestMixin(ProblemTypeA11yTestMixin):
         self.problem_page.click_reset()
         self.problem_page.wait_for_gentle_alert_notification()
 
+    @attr(shard=12)
     def test_partially_complete_notifications(self):
         """
         Scenario: If a partially correct problem is submitted the correct notification is shown
@@ -385,6 +394,7 @@ class ProblemNeverShowCorrectnessMixin(object):
     """
     sequential_metadata = {'show_correctness': 'never'}
 
+    @attr(shard=7)
     @ddt.data('correct', 'incorrect', 'partially-correct')
     def test_answer_says_submitted(self, correctness):
         """
@@ -446,7 +456,6 @@ class ProblemNeverShowCorrectnessMixin(object):
             self.wait_for_events(event_filter=event, number_of_matches=1)
 
 
-@attr(shard=7)
 class AnnotationProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Annotation Problem Type
@@ -558,7 +567,6 @@ class CheckboxProblemTypeBase(ProblemTypeTestBase):
             self.problem_page.click_choice("choice_3")
 
 
-@attr(shard=7)
 class CheckboxProblemTypeTest(CheckboxProblemTypeBase, ProblemTypeTestMixin):
     """
     Standard tests for the Checkbox Problem Type
@@ -579,7 +587,6 @@ class CheckboxProblemTypeTest(CheckboxProblemTypeBase, ProblemTypeTestMixin):
         self.problem_page.wait_for_show_answer_notification()
 
 
-@attr(shard=7)
 class CheckboxProblemTypeNeverShowCorrectnessTest(CheckboxProblemTypeBase, ProblemNeverShowCorrectnessMixin):
     """
     Ensure that correctness can be withheld for Checkbox Problem Type problems.
@@ -587,7 +594,6 @@ class CheckboxProblemTypeNeverShowCorrectnessTest(CheckboxProblemTypeBase, Probl
     pass
 
 
-@attr(shard=7)
 class MultipleChoiceProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization Multiple Choice Problem Type
@@ -662,7 +668,6 @@ class MultipleChoiceProblemTypeNeverShowCorrectnessTest(MultipleChoiceProblemTyp
     pass
 
 
-@attr(shard=7)
 class RadioProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Radio Problem Type
@@ -711,7 +716,6 @@ class RadioProblemTypeNeverShowCorrectnessTest(RadioProblemTypeBase, ProblemNeve
     pass
 
 
-@attr(shard=7)
 class DropDownProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Drop Down Problem Type
@@ -753,7 +757,6 @@ class DropDownProblemTypeNeverShowCorrectnessTest(DropDownProblemTypeBase, Probl
     pass
 
 
-@attr(shard=7)
 class StringProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for String Problem Type
@@ -800,7 +803,6 @@ class StringProblemTypeNeverShowCorrectnessTest(StringProblemTypeBase, ProblemNe
     pass
 
 
-@attr(shard=9)
 class NumericalProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Numerical Problem Type
@@ -843,6 +845,7 @@ class NumericalProblemTypeTest(NumericalProblemTypeBase, ProblemTypeTestMixin):
     """
     Standard tests for the Numerical Problem Type
     """
+    @attr(shard=12)
     def test_error_input_gentle_alert(self):
         """
         Scenario: I can answer a problem with erroneous input and will see a gentle alert
@@ -875,7 +878,6 @@ class NumericalProblemTypeNeverShowCorrectnessTest(NumericalProblemTypeBase, Pro
     pass
 
 
-@attr(shard=12)
 class FormulaProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Formula Problem Type
@@ -924,7 +926,6 @@ class FormulaProblemTypeNeverShowCorrectnessTest(FormulaProblemTypeBase, Problem
     pass
 
 
-@attr(shard=12)
 class ScriptProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Script Problem Type
@@ -991,7 +992,6 @@ class ScriptProblemTypeNeverShowCorrectnessTest(ScriptProblemTypeBase, ProblemNe
     pass
 
 
-@attr(shard=12)
 class JSInputTypeTest(ProblemTypeTestBase, ProblemTypeA11yTestMixin):
     """
     TestCase Class for jsinput (custom JavaScript) problem type.
@@ -1015,7 +1015,6 @@ class JSInputTypeTest(ProblemTypeTestBase, ProblemTypeA11yTestMixin):
         raise NotImplementedError()
 
 
-@attr(shard=12)
 class CodeProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Code Problem Type
@@ -1058,6 +1057,7 @@ class CodeProblemTypeTest(CodeProblemTypeBase, ProblemTypeTestMixin):
     """
     Standard tests for the Code Problem Type
     """
+    @attr(shard=12)
     def test_answer_incorrectly(self):
         """
         Overridden for script test because the testing grader always responds
@@ -1065,6 +1065,7 @@ class CodeProblemTypeTest(CodeProblemTypeBase, ProblemTypeTestMixin):
         """
         pass
 
+    @attr(shard=12)
     def test_submit_blank_answer(self):
         """
         Overridden for script test because the testing grader always responds
@@ -1072,6 +1073,7 @@ class CodeProblemTypeTest(CodeProblemTypeBase, ProblemTypeTestMixin):
         """
         pass
 
+    @attr(shard=12)
     def test_cant_submit_blank_answer(self):
         """
         Overridden for script test because the testing grader always responds
@@ -1079,6 +1081,7 @@ class CodeProblemTypeTest(CodeProblemTypeBase, ProblemTypeTestMixin):
         """
         pass
 
+    @attr(shard=12)
     def wait_for_status(self, status):
         """
         Overridden for script test because the testing grader always responds
@@ -1094,7 +1097,6 @@ class CodeProblemTypeNeverShowCorrectnessTest(CodeProblemTypeBase, ProblemNeverS
     pass
 
 
-@attr(shard=12)
 class ChoiceTextProblemTypeTestBase(ProblemTypeTestBase):
     """
     Base class for "Choice + Text" Problem Types.
@@ -1132,7 +1134,6 @@ class ChoiceTextProblemTypeTestBase(ProblemTypeTestBase):
         self._fill_input_text(input_value, choice)
 
 
-@attr(shard=12)
 class RadioTextProblemTypeBase(ChoiceTextProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Radio Text Problem Type
@@ -1190,7 +1191,6 @@ class RadioTextProblemTypeNeverShowCorrectnessTest(RadioTextProblemTypeBase, Pro
     pass
 
 
-@attr(shard=12)
 class CheckboxTextProblemTypeBase(ChoiceTextProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Checkbox Text Problem Type
@@ -1240,7 +1240,6 @@ class CheckboxTextProblemTypeNeverShowCorrectnessTest(CheckboxTextProblemTypeBas
     pass
 
 
-@attr(shard=12)
 class ImageProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization for Image Problem Type
@@ -1288,7 +1287,6 @@ class ImageProblemTypeNeverShowCorrectnessTest(ImageProblemTypeBase, ProblemNeve
     pass
 
 
-@attr(shard=12)
 class SymbolicProblemTypeBase(ProblemTypeTestBase):
     """
     ProblemTypeTestBase specialization  for Symbolic Problem Type
