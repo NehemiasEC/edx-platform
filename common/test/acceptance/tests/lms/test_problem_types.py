@@ -167,7 +167,7 @@ class ProblemTypeTestMixin(ProblemTypeA11yTestMixin):
     can_submit_blank = False
     can_update_save_notification = True
 
-    @attr(shard=7)
+    @attr(shard=11)
     def test_answer_correctly(self):
         """
         Scenario: I can answer a problem correctly
@@ -212,7 +212,7 @@ class ProblemTypeTestMixin(ProblemTypeA11yTestMixin):
         for event in expected_events:
             self.wait_for_events(event_filter=event, number_of_matches=1)
 
-    @attr(shard=7)
+    @attr(shard=11)
     def test_answer_incorrectly(self):
         """
         Scenario: I can answer a problem incorrectly
@@ -233,7 +233,7 @@ class ProblemTypeTestMixin(ProblemTypeA11yTestMixin):
         self.wait_for_status('incorrect')
         self.problem_page.wait_incorrect_notification()
 
-    @attr(shard=7)
+    @attr(shard=11)
     def test_submit_blank_answer(self):
         """
         Scenario: I can submit a blank answer
@@ -255,7 +255,7 @@ class ProblemTypeTestMixin(ProblemTypeA11yTestMixin):
         self.problem_page.click_submit()
         self.wait_for_status('incorrect')
 
-    @attr(shard=7)
+    @attr(shard=11)
     def test_cant_submit_blank_answer(self):
         """
         Scenario: I can't submit a blank answer
