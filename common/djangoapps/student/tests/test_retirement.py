@@ -1,9 +1,12 @@
 """
 Test user retirement methods
-TODO: When the hasher is working actually test it here with multiple salts
 """
+import json
+
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.test import TestCase
 import pytest
 
 from student.models import (
@@ -182,3 +185,58 @@ def test_get_potentially_retired_user_bad_hash():
 
     with pytest.raises(Exception):
         get_potentially_retired_user_by_username_and_hash(fake_username, "bad hash")
+
+
+class TestRegisterRetiredUsername(TestCase):
+    """
+    Tests to ensure that retired usernames can no longer be used in registering new accounts.
+    """
+    def setUp(self):
+        super(TestRegisterRetiredUsername, self).setUp()
+        self.url = reverse('create_account')
+        self.url_params = {
+            'username': 'username',
+            'email': 'foo_bar' + '@bar.com',
+            'name': 'foo bar',
+            'password': '123',
+            'terms_of_service': 'true',
+            'honor_code': 'true',
+        }
+
+    def _validate_exiting_username_response(self, orig_username, response):
+        """
+        Validates a response stating that a username already exists.
+        """
+        assert response.status_code == 400
+        obj = json.loads(response.content)
+        assert obj['value'].startswith('An account with the Public Username')
+        assert obj['value'].endswith('already exists.')
+        assert orig_username in obj['value']
+        assert obj['field'] == 'username'
+        assert not obj['success']
+
+    def test_retired_username(self):
+        """
+        Ensure that a retired username cannot be registered again.
+        """
+        user = UserFactory()
+        orig_username = user.username
+
+        # Fake retirement of the username.
+        user.username = get_retired_username_by_username(orig_username)
+        user.save()
+
+        # Attempt to create another account with the same username that's been retired.
+        self.url_params['username'] = orig_username
+        response = self.client.post(self.url, self.url_params)
+        self._validate_exiting_username_response(orig_username, response)
+
+    def test_username_close_to_retired_format(self):
+        """
+        Ensure that a username similar to the format of a retired username cannot be created.
+        """
+        # Attempt to create an account with a username similar to the format of a retired username.
+        close_username = settings.RETIRED_USERNAME_FMT.split('{')[0]
+        self.url_params['username'] = close_username
+        response = self.client.post(self.url, self.url_params)
+        self._validate_exiting_username_response(close_username, response)

@@ -47,7 +47,8 @@ from student.models import (
     Registration,
     UserAttribute,
     UserProfile,
-    unique_id_for_user
+    unique_id_for_user,
+    is_username_retired
 )
 
 
@@ -618,8 +619,21 @@ def do_create_account(form, custom_form=None):
     if errors:
         raise ValidationError(errors)
 
+    proposed_username = form.cleaned_data["username"]
+    username_exists_message = _("An account with the Public Username '{username}' already exists.").format(
+        username=proposed_username
+    )
+
+    # Check for retired username.
+    if is_username_retired(proposed_username):
+        raise AccountValidationError(username_exists_message, field="username")
+
+    # Check for username that's too close to retired username format.
+    if proposed_username.startswith(settings.RETIRED_USERNAME_FMT.split('{')[0]):
+        raise AccountValidationError(username_exists_message, field="username")
+
     user = User(
-        username=form.cleaned_data["username"],
+        username=proposed_username,
         email=form.cleaned_data["email"],
         is_active=False
     )
@@ -643,10 +657,7 @@ def do_create_account(form, custom_form=None):
         # return "It looks like {username} belongs to an existing account. Try again with a
         # different username.")
         if len(User.objects.filter(username=user.username)) > 0:
-            raise AccountValidationError(
-                _("An account with the Public Username '{username}' already exists.").format(username=user.username),
-                field="username"
-            )
+            raise AccountValidationError(username_exists_message, field="username")
         elif len(User.objects.filter(email=user.email)) > 0:
             raise AccountValidationError(
                 _("An account with the Email '{email}' already exists.").format(email=user.email),
