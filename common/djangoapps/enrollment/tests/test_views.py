@@ -1317,4 +1317,3 @@ class UnenrollmentTest(EnrollmentTestMixin, ModuleStoreTestCase):
         url = reverse('unenrollment')
         headers = self.build_jwt_headers(submitting_user)
         return self.client.post(url, json.dumps(data), content_type='application/json', **headers)
-
