@@ -1267,11 +1267,13 @@ class UnenrollmentTest(EnrollmentTestMixin, ModuleStoreTestCase):
         data = json.loads(response.content)
         # order doesn't matter so compare sets
         self.assertEqual(set(data), self.orgs)
+        self._assert_inactive()
 
     def test_deactivate_enrollments_unauthorized(self):
         self._assert_active()
         response = self._submit_unenroll(self.user, self.user.username)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self._assert_active()
 
     def test_deactivate_enrollments_no_username(self):
         self._assert_active()
@@ -1279,6 +1281,7 @@ class UnenrollmentTest(EnrollmentTestMixin, ModuleStoreTestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         data = json.loads(response.content)
         self.assertEqual(data['message'], "The user was not specified.".format(self.user.username))
+        self._assert_active()
 
     def test_deactivate_enrollments_invalid_username(self):
         self._assert_active()
@@ -1286,6 +1289,7 @@ class UnenrollmentTest(EnrollmentTestMixin, ModuleStoreTestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         data = json.loads(response.content)
         self.assertEqual(data['message'], "The user a made up username does not exist.".format(self.user.username))
+        self._assert_active()
 
     def test_deactivate_enrollments_called_twice(self):
         self._assert_active()
@@ -1295,12 +1299,18 @@ class UnenrollmentTest(EnrollmentTestMixin, ModuleStoreTestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         data = json.loads(response.content)
         self.assertEqual(data['message'], "The user {} is not enrolled in any courses.".format(self.user.username))
+        self._assert_inactive()
 
     def _assert_active(self):
         for course in self.courses:
             self.assertTrue(CourseEnrollment.is_enrolled(self.user, course.id))
             course_mode, is_active = CourseEnrollment.enrollment_mode_for_user(self.user, course.id)
             self.assertTrue(is_active)
+
+    def _assert_inactive(self):
+        for course in self.courses:
+            course_mode, is_active = CourseEnrollment.enrollment_mode_for_user(self.user, course.id)
+            self.assertFalse(is_active)
 
     def _submit_unenroll(self, submitting_user, unenrolling_username):
         data = {'user': unenrolling_username}
