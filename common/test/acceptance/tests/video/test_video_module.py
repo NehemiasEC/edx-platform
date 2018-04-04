@@ -889,7 +889,7 @@ class YouTubeHtml5VideoTest(VideoBaseTest):
         self.assertTrue(self.video.is_video_rendered('youtube'))
 
 
-@attr(shard=13)
+@attr(shard=19)
 class Html5VideoTest(VideoBaseTest):
     """ Test HTML5 Video Player """
 

@@ -113,7 +113,7 @@ class BulkEmailTest(BaseInstructorDashboardTest):
         self.send_email_page.a11y_audit.check_for_accessibility_errors()
 
 
-@attr(shard=10)
+@attr(shard=3)
 class AutoEnrollmentWithCSVTest(BaseInstructorDashboardTest):
     """
     End-to-end tests for Auto-Registration and enrollment functionality via CSV file.
