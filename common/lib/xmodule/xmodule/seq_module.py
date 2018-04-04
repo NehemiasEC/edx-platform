@@ -210,8 +210,7 @@ class SequenceModule(SequenceFields, ProctoringFields, XModule):
 
         if dispatch == 'get_completion':
             completion_service = self.runtime.service(self, 'completion')
-            if not completion_service.visual_progress_enabled():
-                return None
+
             usage_key = data.get('usage_key', None)
             item = self.get_child(UsageKey.from_string(usage_key))
             if not item:
