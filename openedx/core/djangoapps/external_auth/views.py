@@ -40,6 +40,7 @@ from openedx.core.djangoapps.external_auth.models import ExternalAuthMap
 from openedx.core.djangoapps.site_configuration.helpers import get_value
 from student.helpers import get_next_url_for_login_page
 from student.models import UserProfile
+from util.db import outer_atomic
 from xmodule.modulestore.django import modulestore
 
 if settings.FEATURES.get('AUTH_USE_CAS'):
@@ -88,8 +89,9 @@ def generate_password(length=12, chars=string.letters + string.digits):
 def openid_login_complete(request,
                           redirect_field_name=REDIRECT_FIELD_NAME,  # pylint: disable=unused-argument
                           render_failure=None):
-    """Complete the openid login process"""
-
+    """
+    Complete the openid login process
+    """
     render_failure = (render_failure or default_render_failure)
 
     openid_response = openid_views.parse_openid_response(request)
@@ -142,8 +144,8 @@ def _external_login_or_signup(request,
     }
 
     # We are not guaranteed to be in a transaction here since some upstream views
-    # user non_atomic_requests
-    with transaction.atomic():
+    # use non_atomic_requests
+    with outer_atomic():
         eamap, created = ExternalAuthMap.objects.get_or_create(
             external_id=external_id,
             external_domain=external_domain,
@@ -166,7 +168,7 @@ def _external_login_or_signup(request,
             # Since the id the idps return is not user-editable, and is of the from "username@stanford.edu",
             # use the id to link accounts instead.
             try:
-                with transaction.atomic():
+                with outer_atomic():
                     link_user = User.objects.get(email=eamap.external_id)
                     if not ExternalAuthMap.objects.filter(user=link_user).exists():
                         # if there's no pre-existing linked eamap, we link the user
