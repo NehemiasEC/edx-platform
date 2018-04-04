@@ -187,9 +187,10 @@ class SequenceModule(SequenceFields, ProctoringFields, XModule):
             self.position = self.system.position
 
     def get_progress(self):
-        ''' Return the total progress, adding total done and total available.
+        """
+        Return the total progress, adding total done and total available.
         (assumes that each submodule uses the same "units" for progress.)
-        '''
+        """
         # TODO: Cache progress or children array?
         children = self.get_children()
         progresses = [child.get_progress() for child in children]
@@ -471,7 +472,7 @@ class SequenceModule(SequenceFields, ProctoringFields, XModule):
                 'path': " > ".join(display_names + [item.display_name_with_default]),
             }
 
-            if is_user_authenticated:
+            if is_user_authenticated and completion_service.visual_progress_enabled():
                 iteminfo['complete'] = completion_service.vertical_is_complete(item)
 
             contents.append(iteminfo)
