@@ -416,6 +416,9 @@ class BaseGroupConfigurationsTest(ContainerBase):
 
 @attr(shard=21)
 class UnitAccessContainerTest(BaseGroupConfigurationsTest):
+    """
+    Tests unit level access
+    """
     GROUP_RESTRICTED_MESSAGE = 'Access to this unit is restricted to: Dogs'
 
     def _toggle_container_unit_access(self, group_ids, unit):

@@ -1,3 +1,6 @@
+"""
+Acceptance tests that ensure components with bad content do not break page.
+"""
 from nose.plugins.attrib import attr
 
 from base_studio_test import ContainerBase

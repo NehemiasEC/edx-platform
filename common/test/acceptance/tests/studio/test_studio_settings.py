@@ -235,6 +235,9 @@ class ContentGroupConfigurationTest(StudioCourseTest):
 
 @attr(shard=17)
 class EnrollmentTrackModeTest(StudioCourseTest):
+    """
+    Tests for the enrollment tracks section
+    """
 
     def setUp(self, is_staff=True, test_xss=True):
         super(EnrollmentTrackModeTest, self).setUp(is_staff=is_staff)
