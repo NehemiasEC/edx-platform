@@ -373,7 +373,7 @@ class UnenrollmentView(APIView):
                     }
                 )
             return Response(api.unenroll_user_from_all_courses(username))
-        except Exception as exc:
+        except Exception as exc:  # pylint: disable=broad-except
             return Response(text_type(exc), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 

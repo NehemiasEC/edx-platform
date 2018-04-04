@@ -1210,6 +1210,10 @@ class EnrollmentCrossDomainTest(ModuleStoreTestCase):
 @ddt.ddt
 @unittest.skipUnless(settings.ROOT_URLCONF == 'lms.urls', 'Test only valid in lms')
 class UnenrollmentTest(EnrollmentTestMixin, ModuleStoreTestCase):
+    """
+    Tests unenrollment functionality. The API being tested is intended to
+    unenroll a learner from all of their courses.g
+    """
     USERNAME = "Bob"
     EMAIL = "bob@example.com"
     PASSWORD = "edx"
@@ -1280,7 +1284,7 @@ class UnenrollmentTest(EnrollmentTestMixin, ModuleStoreTestCase):
         response = self._submit_unenroll(self.superuser, "")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         data = json.loads(response.content)
-        self.assertEqual(data['message'], "The user was not specified.".format(self.user.username))
+        self.assertEqual(data['message'], "The user was not specified.")
         self._assert_active()
 
     def test_deactivate_enrollments_invalid_username(self):
@@ -1288,7 +1292,7 @@ class UnenrollmentTest(EnrollmentTestMixin, ModuleStoreTestCase):
         response = self._submit_unenroll(self.superuser, "a made up username")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         data = json.loads(response.content)
-        self.assertEqual(data['message'], "The user a made up username does not exist.".format(self.user.username))
+        self.assertEqual(data['message'], "The user a made up username does not exist.")
         self._assert_active()
 
     def test_deactivate_enrollments_called_twice(self):
@@ -1304,7 +1308,7 @@ class UnenrollmentTest(EnrollmentTestMixin, ModuleStoreTestCase):
     def _assert_active(self):
         for course in self.courses:
             self.assertTrue(CourseEnrollment.is_enrolled(self.user, course.id))
-            course_mode, is_active = CourseEnrollment.enrollment_mode_for_user(self.user, course.id)
+            _, is_active = CourseEnrollment.enrollment_mode_for_user(self.user, course.id)
             self.assertTrue(is_active)
 
     def _assert_inactive(self):
