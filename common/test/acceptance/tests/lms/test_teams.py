@@ -1180,7 +1180,7 @@ class CreateTeamTest(TeamFormActions):
             self.verify_and_navigate_to_create_team_page()
 
 
-@attr(shard=5)
+@attr(shard=21)
 @ddt.ddt
 class DeleteTeamTest(TeamFormActions):
     """

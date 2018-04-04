@@ -1157,7 +1157,7 @@ class LMSVideoModuleA11yTest(VideoBaseTest):
         self.video.a11y_audit.check_for_accessibility_errors()
 
 
-@attr(shard=1)
+@attr(shard=11)
 class VideoPlayOrderTest(VideoBaseTest):
     """
     Test video play order with multiple videos
@@ -1201,7 +1201,7 @@ class VideoPlayOrderTest(VideoBaseTest):
         self.assertTrue(self.video.is_video_rendered('hls'))
 
 
-@attr(shard=1)
+@attr(shard=11)
 class HLSVideoTest(VideoBaseTest):
     """
     Tests related to HLS video

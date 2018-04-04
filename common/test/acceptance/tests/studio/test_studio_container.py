@@ -468,7 +468,7 @@ class UnitAccessContainerTest(BaseGroupConfigurationsTest):
         self._verify_container_unit_access_message([self.id_base + 1], self.GROUP_RESTRICTED_MESSAGE)
 
 
-@attr(shard=3)
+@attr(shard=9)
 class ContentGroupVisibilityModalTest(BaseGroupConfigurationsTest):
     """
     Tests of the visibility settings modal for components on the unit
